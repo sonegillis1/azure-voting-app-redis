@@ -32,11 +32,15 @@ pipeline {
                     echo "App started successfully :)"
                 }
                 failure {
+                    sh(script: 'docker-compose down')
                     echo "App failed to start :("
                 }
             }
         }
         stage('Run Tests') {
+            agent {
+                docker 'qnib/pytest'
+            }
             steps {
                 sh(script: """
                     pytest ./tests/test_sample.py
