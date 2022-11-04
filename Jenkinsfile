@@ -67,5 +67,13 @@ pipeline {
                 }
             }
         }
+        stage('Scan Container') {
+            agent {
+                docker 'aquasec/trivy'
+            }
+            steps {
+                sh(script: 'trivy image sonegillis/jenkins-course:latest')
+            }
+        }
     }
 }
