@@ -69,7 +69,7 @@ pipeline {
         }
         stage('Scan Container') {
             agent {
-                docker 'aquasec/trivy'
+                docker 'bitnami/trivy'
             }
             steps {
                 sh(script: 'trivy image sonegillis/jenkins-course:latest')
