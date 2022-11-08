@@ -68,11 +68,11 @@ pipeline {
             }
         }
         stage('Scan Container') {
-            agent {
-                docker 'bitnami/trivy'
-            }
             steps {
-                sh(script: 'trivy image sonegillis/jenkins-course:latest')
+                sh(script: """
+                    curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh -s -- -b /usr/local/bin v0.18.3
+                    trivy image sonegillis/jenkins-course:latest
+                """)
             }
         }
     }
